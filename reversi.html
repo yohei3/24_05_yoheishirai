@@ -16,6 +16,22 @@
         ctx.fillStyle = "green"
         ctx.fillRect(0,0,canvas.width,canvas.height)
         //変数ctxのメソッドを利用して、四角を描画する。
+        var board =[
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,2,1,0,0,0],
+            [0,0,0,1,2,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0]
+        ]
+
+        //配列にdiv classつけれたらラクだよな。。。
+        drawBoard()
+        function drawBoard(){
+        ctx.fillStyle="green"
+        ctx.fillRect=(0,0,canvas.width,canvas.height)
         ctx.strokeStyle = "black"
         for(var i=0; i<=8; i++)
         {
@@ -26,96 +42,53 @@
             ctx.moveTo(10,i*30+10)
             ctx.lineTo(250,i*30+10)
             ctx.stroke()
-        }
-        function drawStone(x,y,c){
-            ctx.fillStyle = c
-            ctx.beginPath()
-            ctx.arc(x*30+25,y*30+25,14,0,2*Math.PI)
-            ctx.fill()
-        }
-        drawStone(3,3,"white")
-        drawStone(4,3,"black")
-        drawStone(3,4,"white")
-        drawStone(4,4,"black")
-
-        //ここまでで碁盤の目ができた形
-        /*    for(var y=0;y<=7;y++){
+            }
+            for(var y=0;y<=7;y++){
                 for(var x = 0;x<=7;x++){
                     drawStone(x,y,board[y][x])
+                }
             }
         }
-        */
-
-
-        //コマを描く
-        /*
         function drawStone(x,y,c){
-            if(c==1){
-                ctx.fillstyle="black"
-            }else if(c==2){
-                ctx.fillstyle="white"
+            if(c == 1){
+            ctx.fillStyle = "black"
+            }else if(c == 2){
+                ctx.fillStyle="white"
             }else{
                 return
             }
             ctx.beginPath()
-            ctx.arc(x*30+25,y*30+25,14,0,Math.PI)
+            ctx.arc(x*30+25,y*30+25,14,0,2*Math.PI)
             ctx.fill()
         }
-        //線を引くときは beginPath と stroke で囲む。
-        */
-       /*
-        function next(x,y){
-            if(0<=x && x<=7 && 0<=y && y<=7 ){
-                board[y][x]++
-                if(board[y][x]==3){
-                    board[y][x]=0
-                }
+        //3でぬける
+        function turn(x,y){
+            if(0<=x && x<=7 && 0 <= y && y <=7 ){
+            board[y][x]++ //色が変わる
+            if(board[y][x]==3){
+                board[y][x]=0
+            }
             }
         }
-        //やや意味不明
-        :/
-        //クリックしたますの色を変える 
-        
-        // 勉強用
-        // ctx.strokeStyle="black"
-        // ctx.beginPath()
-        // ctx.moveTo(10,10)
-        // ctx.lineTo(20,20)
-        // ctx.stroke()
-
-        // ctx.beginPath()
-        // ctx.rect(10,10,20,20)
-        // ctx.stroke()
-
-        // ctx.strokeStyle="blue"
-        // ctx.beginPath()
-        // ctx.arc(20,20,10,0,2*Math.PI)
-        // ctx.stroke()
-
-        // ctx.fillStyle = "red"
-        // ctx.fillRect(40,10,20,20)
-        
-        /*
-        var board =[
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,2,1,0,0,0],
-            [0,0,0,1,2,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-        ]
-
-        drawBoard()
-
+        //クリックして再描画
         canvas.onmousedown=function(e){
+            var r = canvas.getBoundingClientRect()
+            var x = Math.floor((e.clientX - r.left-10)/30)
+            var y = Math.floor((e.clientY - r.top-10)/30)
+            turn(x,y)
+            drawBoard() //押してアクションを起こしたうえで、再描写
+            console.log(x,y);
+        }
+
+        if(board[y][x]==1 && board[y-1][x-1]){
 
         }
-        */
-    
+        //JQUERY EQ 0-63のEQ
+
+
+
+
+
     </script>
-
-
 </body>
 </html>
